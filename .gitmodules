@@ -1,0 +1,3 @@
+[submodule "deps/OpenRV-annotation"]
+	path = deps/OpenRV-annotation
+	url = https://github.com/AcademySoftwareFoundation/OpenRV-annotation.git

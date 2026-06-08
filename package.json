@@ -1,0 +1,25 @@
+{
+  "name": "@autodesk/openrv-annotation-wasm",
+  "version": "0.2.4",
+  "main": "./dist/annotation_platform.js",
+  "exports": {
+    ".": "./dist/annotation_platform.js",
+    "./shaders/*": "./deps/OpenRV-annotation/assets/shaders/*"
+  },
+  "files": [
+    "dist/",
+    "deps/OpenRV-annotation/assets/shaders/",
+    "annotation_platform.d.ts"
+  ],
+  "types": "./annotation_platform.d.ts",
+  "scripts": {
+    "build:wasm": "make wasm",
+    "build": "mkdir -p dist && cp build-wasm/bindings/wasm/annotation_platform.js dist/",
+    "test": "node test/unit/smoke-test.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "c8": "^10.0.0",
+    "prettier": "^3.0.0"
+  }
+}

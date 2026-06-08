@@ -1,0 +1,14 @@
+build/
+build-wasm/
+emsdk/
+node_modules/
+scripts/.venv/
+coverage/report/
+test/shaders/shader-test.html
+.DS_Store
+*.swp
+*.o
+*.a
+*.so
+*.dylib
+*.js.map

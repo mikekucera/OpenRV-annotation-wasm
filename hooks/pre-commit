@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+staged_cpp=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(cpp|h)$'  || true)
+staged_js=$( git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(js|mjs)$' || true)
+
+failed=()
+
+for f in $staged_cpp; do
+    if ! clang-format --dry-run --Werror "$f" 2>/dev/null; then
+        failed+=("$f (clang-format)")
+    fi
+done
+
+for f in $staged_js; do
+    if ! npx --no-install prettier --check "$f" 2>/dev/null; then
+        failed+=("$f (prettier)")
+    fi
+done
+
+if [ ${#failed[@]} -gt 0 ]; then
+    echo "Formatting issues in:"
+    for f in "${failed[@]}"; do
+        echo "  $f"
+    done
+    echo ""
+    echo "Run 'make format' to fix, then re-stage."
+    exit 1
+fi
